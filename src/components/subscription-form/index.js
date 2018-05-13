@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Spinner from '../spinner';
 import rp from 'request-promise';
 
 import './style.css';
@@ -62,6 +63,9 @@ class SubscriptionForm extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      submitting: false,
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -73,6 +77,8 @@ class SubscriptionForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
+    this.setState({ submitting: true });
 
     const form = new FormData(e.target);
     const data = {};
@@ -93,28 +99,35 @@ class SubscriptionForm extends Component {
   }
 
   render() {
+    const { submitting } = this.state;
     const { category } = this.props;
     const form = forms[category];
 
     return (
       <div className="SubscriptionForm">
-        <form onSubmit={this.onSubmit}>
-          {form.map((input, index) => {
-            return (
-              <div className="form-group">
-                <input
-                  className="form-control"
-                  type={input.type}
-                  name={input.name}
-                  value={input.value}
-                  placeholder={input.placeholder}
-                />
-              </div>
-            );
-          })}
+        {!submitting &&
+          <form onSubmit={this.onSubmit}>
+            {form.map((input, index) => {
+              return (
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    type={input.type}
+                    name={input.name}
+                    value={input.value}
+                    placeholder={input.placeholder}
+                  />
+                </div>
+              );
+            })}
 
-          <button type="submit" className="btn btn-primary btn-lg btn-block">INSCREVER</button>
-        </form>
+            <button type="submit" className="btn btn-primary btn-lg btn-block">INSCREVER</button>
+          </form>
+        }
+
+        {submitting &&
+          <Spinner />
+        }
       </div>
     );
   }
