@@ -65,7 +65,7 @@ class App extends Component {
 
           <div className="row justify-content-md-center">
             <div className="col-md-auto col-lg-4">
-              {!allowCategory &&
+              {!allowCategory && !formSubmitted &&
                 <button
                   type="button"
                   className="btn btn-primary"

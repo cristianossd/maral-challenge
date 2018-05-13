@@ -9,26 +9,35 @@ const NEW_SUBSCRIPTION_URL = 'https://script.google.com/macros/s/AKfycbxo3DsSlMT
 const forms = {
   '1M': [
     { type: 'hidden', name: 'categoria', value: 'RX Individual Masculino', placeholder: '' },
+    { type: 'hidden', name: 'equipe', value: '', placeholder: '' },
+    { type: 'hidden', name: 'pago', value: 'Não', placeholder: '' },
     { type: 'text', name: 'atleta_1', placeholder: 'Nome do Atleta' },
     { type: 'email', name: 'atleta_1_email', placeholder: 'Email' },
+    { type: 'hidden', name: 'atleta_2', value: '', placeholder: '' },
+    { type: 'hidden', name: 'atleta_3', value: '', placeholder: '' },
   ],
   '2F': [
     { type: 'hidden', name: 'categoria', value: 'Dupla Intermediãrio Feminino', placeholder: '' },
     { type: 'text', name: 'equipe', placeholder: 'Nome da Equipe' },
+    { type: 'hidden', name: 'pago', value: 'Não', placeholder: '' },
     { type: 'email', name: 'atleta_1_email', placeholder: 'Email da Capitã' },
     { type: 'text', name: 'atleta_1', placeholder: 'Nome da Atleta 1' },
     { type: 'text', name: 'atleta_2', placeholder: 'Nome da Atleta 2' },
+    { type: 'hidden', name: 'atleta_3', value: '', placeholder: '' },
   ],
   '2M': [
     { type: 'hidden', name: 'categoria', value: 'Dupla Intermediário Masculino', placeholder: '' },
     { type: 'text', name: 'equipe', placeholder: 'Nome da Equipe' },
+    { type: 'hidden', name: 'pago', value: 'Não', placeholder: '' },
     { type: 'email', name: 'atleta_1_email', placeholder: 'Email do Capitão' },
     { type: 'text', name: 'atleta_1', placeholder: 'Nome do Atleta 1' },
     { type: 'text', name: 'atleta_2', placeholder: 'Nome do Atleta 2' },
+    { type: 'hidden', name: 'atleta_3', value: '', placeholder: '' },
   ],
   '3F': [
     { type: 'hidden', name: 'categoria', value: 'Trio Scaled Feminino', placeholder: '' },
     { type: 'text', name: 'equipe', placeholder: 'Nome da Equipe' },
+    { type: 'hidden', name: 'pago', value: 'Não', placeholder: '' },
     { type: 'email', name: 'atleta_1_email', placeholder: 'Email da Capitã' },
     { type: 'text', name: 'atleta_1', placeholder: 'Nome da Atleta 1' },
     { type: 'text', name: 'atleta_2', placeholder: 'Nome da Atleta 2' },
@@ -37,6 +46,7 @@ const forms = {
   '3M': [
     { type: 'hidden', name: 'categoria', value: 'Trio Scaled Masculino', placeholder: '' },
     { type: 'text', name: 'equipe', placeholder: 'Nome da Equipe' },
+    { type: 'hidden', name: 'pago', value: 'Não', placeholder: '' },
     { type: 'email', name: 'atleta_1_email', placeholder: 'Email do Capitão' },
     { type: 'text', name: 'atleta_1', placeholder: 'Nome do Atleta 1' },
     { type: 'text', name: 'atleta_2', placeholder: 'Nome do Atleta 2' },
@@ -70,17 +80,15 @@ class SubscriptionForm extends Component {
       data[key] = value;
     });
 
+    const url = new URLSearchParams(form).toString();
+
     rp({
-      uri: NEW_SUBSCRIPTION_URL,
-      method: 'GET',
-      body: data,
-      json: true,
-    }).then(res =>
-      res.json()
-    ).then(json => {
-      console.log(json);
-    }).catch(e => {
-      console.log(e);
+      uri: `${NEW_SUBSCRIPTION_URL}?${url}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }).then(res => {
+      this.props.onFinish();
     });
   }
 

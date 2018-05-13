@@ -2,7 +2,9 @@
   "name": "maral-challenge",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cristianossd.github.io/maral-challenge",
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -11,6 +13,8 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
