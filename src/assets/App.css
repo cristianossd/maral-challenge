@@ -1,0 +1,69 @@
+.App-logo {
+  text-align: center;
+  margin: 70px 0px 0px;
+  padding: 0px 20px;
+}
+
+.App-logo img {
+  width: 250px;
+  height: auto;
+}
+
+.App-description {
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px 0px 0px;
+  padding: 0px 20px;
+}
+
+.App-description h4 {
+  margin: 0px 0px 5px;
+  font-weight: 700;
+  color: #FFA500;
+}
+
+.App-description p {
+  font-weight: 300;
+  margin: 0px 0px 20px;
+}
+
+.App-description .btn {
+  color: #191919;
+  font-weight: 600;
+  background-color: #FFA500;
+  border-color: #FFA500;
+  box-shadow: none;
+}
+
+.App-description .btn:hover {
+  background-color: #CC8400;
+  border-color: #CC8400;
+  box-shadow: none;
+}
+
+.App-description .btn:active,
+.App-description .btn:visited,
+.App-description .btn:clicked,
+.App-description .btn:focus {
+  background-color: #CC8400;
+  border-color: #FFA500;
+  box-shadow: none;
+}
+
+.App-forms-select {
+  padding: 0 20px 0;
+}
+
+.App-forms-select select {
+  text-align: center;
+}
+
+.App-messages {
+  text-align: center;
+  padding: 30px 20px 20px;
+  font-size: 12px;
+}
+
+.App-messages strong {
+  color: #FFA500;
+}
