@@ -2,7 +2,7 @@
   "name": "maral-challenge",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cristianossd.github.io/maral-challenge",
+  "homepage": "http://maralcrossfit.com.br",
   "dependencies": {
     "gh-pages": "^1.1.0",
     "prop-types": "^15.6.1",
