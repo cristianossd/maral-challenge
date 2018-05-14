@@ -81,11 +81,6 @@ class SubscriptionForm extends Component {
     this.setState({ submitting: true });
 
     const form = new FormData(e.target);
-    const data = {};
-    form.forEach((value, key) => {
-      data[key] = value;
-    });
-
     const url = new URLSearchParams(form).toString();
 
     rp({
