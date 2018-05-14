@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../spinner';
 import rp from 'request-promise';
+import getFormData from 'get-form-data';
+import queryString from 'query-string';
 
 import './style.css';
 
@@ -80,8 +82,8 @@ class SubscriptionForm extends Component {
 
     this.setState({ submitting: true });
 
-    const form = new FormData(e.target);
-    const url = new URLSearchParams(form).toString();
+    const form = getFormData(e.target);
+    const url = queryString.stringify(form);
 
     rp({
       uri: `${NEW_SUBSCRIPTION_URL}?${url}`,
