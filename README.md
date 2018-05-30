@@ -2,6 +2,6 @@
 
 Maral Challenge
 ====
-Manage [Maral Crossfit](www.maralcrossfit.com.br) championships
+Manage [Maral Crossfit](http://www.maralcrossfit.com.br) championships
 
 ### LICENSE
