@@ -64,16 +64,8 @@ class App extends Component {
           <p>9 DE JUNHO, MARAL ARMAÇÃO, SALVADOR - BAHIA</p>
 
           <div className="row justify-content-md-center">
-            <div className="col-md-auto col-lg-4">
-              {!allowCategory && !formSubmitted &&
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={this.showCategory}
-                >
-                  INSCREVA-SE
-                </button>
-              }
+            <div className="col-md-auto col-lg-4 App-finished-subscriptions">
+              INSCRIÇÕES ENCERRADAS!
             </div>
           </div>
         </div>

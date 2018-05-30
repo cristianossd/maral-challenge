@@ -67,3 +67,8 @@
 .App-messages strong {
   color: #FFA500;
 }
+
+.App-finished-subscriptions {
+  font-size: 24px;
+  font-weight: 600;
+}
