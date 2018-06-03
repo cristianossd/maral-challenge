@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { withApollo } from 'react-apollo';
 
 import Team from '../team/';
 import Spinner from '../spinner/';
@@ -12,11 +12,19 @@ class LeaderboardTable extends Component {
     super(props);
     this.state = {
       teams: [],
+      loading: false,
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { category } = nextProps;
+    if (category !== this.props.category) {
+      this._getLeaderboard(category);
+    }
+  }
+
   render() {
-    const { leaderboardQuery } = this.props;
+    const { loading, teams } = this.state;
 
     return (
       <div className="LeaderboardTable table-responsive">
@@ -34,25 +42,37 @@ class LeaderboardTable extends Component {
           </thead>
 
           <tbody>
-            {leaderboardQuery.feed &&
-              leaderboardQuery.feed.map((team, idx) => (
+            {teams.length > 0 &&
+              teams.map((team, idx) => (
                 <Team key={idx} pos={idx} attributes={team} />
               ))
             }
           </tbody>
         </table>
 
-        {leaderboardQuery && leaderboardQuery.loading &&
+        {loading &&
           <Spinner />
         }
       </div>
     );
   }
+
+  _getLeaderboard = async (category) => {
+    this.setState({ loading: true });
+
+    const { data } = await this.props.client.query({
+      query: LEADERBOARD_QUERY,
+      variables: { category },
+    });
+
+
+    this.setState({ teams: data.leaderboard, loading: false });
+  }
 }
 
 const LEADERBOARD_QUERY = gql`
-  query LeaderboardQuery {
-    feed {
+  query LeaderboardQuery($category: String!) {
+    leaderboard(category: $category) {
       id
       name
       finalScore
@@ -67,4 +87,4 @@ const LEADERBOARD_QUERY = gql`
   }
 `;
 
-export default graphql(LEADERBOARD_QUERY, { name: 'leaderboardQuery' })(LeaderboardTable);
+export default withApollo(LeaderboardTable);

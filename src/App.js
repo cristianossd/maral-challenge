@@ -6,7 +6,7 @@ import './assets/App.css';
 
 const categories = [
   'Trio Scaled Feminino',
-  'Trio Scaled Mascluno',
+  'Trio Scaled Masculino',
   'Dupla Intermediário Feminino',
   'Dupla Intermediário Masculino',
   'RX Individual Masculino',
