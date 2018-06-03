@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import LeaderboardTable from './components/leaderboard-table';
+import { Switch, Route } from 'react-router-dom';
 
+import LeaderboardTable from './components/leaderboard-table';
+import Login from './components/login';
 import logo from './assets/maral-challenge-logo.png';
 import './assets/App.css';
 
@@ -33,6 +35,10 @@ class App extends Component {
       <div className="App">
         <div className="App-logo">
           <img src={logo} alt="Maral Challenge Logo" />
+
+          <Switch>
+            <Route exact path="/login" component={Login} />
+          </Switch>
         </div>
 
         <div className="App-description">
