@@ -1,57 +1,33 @@
 import React, { Component } from 'react';
-import SubscriptionForm from './components/subscription-form';
+import LeaderboardTable from './components/leaderboard-table';
 
 import logo from './assets/maral-challenge-logo.png';
 import './assets/App.css';
 
 const categories = [
-  { label: 'Trio Scaled Feminino', value: '3F'},
-  { label: 'Trio Scaled Mascluno', value: '3M'},
-  { label: 'Dupla Intermediário Feminino', value: '2F'},
-  { label: 'Dupla Intermediário Masculino', value: '2M'},
-  { label: 'RX Individual Masculino', value: '1M'},
+  'Trio Scaled Feminino',
+  'Trio Scaled Mascluno',
+  'Dupla Intermediário Feminino',
+  'Dupla Intermediário Masculino',
+  'RX Individual Masculino',
 ];
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: null,
-      allowCategory: false,
-      allowForm: false,
-      formSubmitted: false,
+      selectedCategory: null,
     };
 
-    this.showCategory = this.showCategory.bind(this);
-    this.showForm = this.showForm.bind(this);
-    this.onFinish = this.onFinish.bind(this);
+    this.setCategory = this.setCategory.bind(this);
   }
 
-  showCategory() {
-    this.setState({
-      allowCategory: true,
-      allowForm: false,
-    });
-  }
-
-  showForm({ target }) {
-    this.setState({
-      category: target.value,
-      allowForm: true,
-    });
-  }
-
-  onFinish() {
-    this.setState({
-      category: null,
-      allowCategory: false,
-      allowForm: false,
-      formSubmitted: true,
-    });
+  setCategory({ target }) {
+    this.setState({ selectedCategory: target.value });
   }
 
   render() {
-    const { category, allowCategory, allowForm, formSubmitted } = this.state;
+    const { selectedCategory } = this.state;
 
     return (
       <div className="App">
@@ -65,59 +41,27 @@ class App extends Component {
 
           <div className="row justify-content-md-center">
             <div className="col-md-auto col-lg-4 App-finished-subscriptions">
-              INSCRIÇÕES ENCERRADAS!
-            </div>
-          </div>
-        </div>
 
-        <div className="App-forms">
-          <div className="row justify-content-md-center">
-            <div className="col-md-auto col-lg-5">
-
-              {allowCategory &&
-                <div className="App-forms-select form-group">
-                  <select
-                    className="App-forms-select-category form-control"
-                    id="categorySelect"
-                    onChange={this.showForm}
-                    defaultValue=""
-                  >
-                    <option value="" disabled>Qual sua categoria?</option>
-
-                    {categories.map((campCategory, index) => {
-                      return (
-                        <option key={index} value={campCategory.value}>{campCategory.label}</option>
-                      );
-                    })}
-
-                  </select>
-                </div>
-              }
-
-
-              {allowForm &&
-                <SubscriptionForm
-                  category={category}
-                  onFinish={this.onFinish}
-                />
-              }
-            </div>
-          </div>
-        </div>
-
-        {formSubmitted &&
-          <div className="App-messages">
-            <div className="row justify-content-md-center">
-              <div className="col-md-auto col-lg-7">
-                SUA <strong>INSCRIÇÃO</strong> FOI REALIZADA COM SUCESSO.
-                O PAGAMENTO DEVE SER REALIZADO EM UMA DE
-                NOSSAS SEDES (IMBUÍ OU ARMAÇÃO) PARA A
-                CONFIRMAÇÃO DA SUA PARTICIPAÇÃO!
+              <div className="form-group">
+                <label htmlFor="selectCategory">Acompanhe o Leaderboard</label>
+                <select
+                  className="form-control"
+                  id="selectCategory"
+                  defaultValue=""
+                  onChange={this.setCategory}
+                >
+                  <option value="" disabled>Selecione a categoria</option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category}>{category}</option>
+                  ))}
+                </select>
               </div>
+
             </div>
           </div>
-        }
 
+          <LeaderboardTable category={selectedCategory} />
+        </div>
       </div>
     );
   }
