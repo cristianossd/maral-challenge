@@ -1,0 +1,15 @@
+.Login {
+  display: flex;
+  justify-content: center;
+}
+
+.Login-form {
+  margin-top: 120px;
+  flex-grow: 0;
+  width: 350px;
+}
+
+.Login-form h3 {
+  text-transform: uppercase;
+  text-align: center;
+}
