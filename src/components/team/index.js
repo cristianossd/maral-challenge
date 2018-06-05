@@ -4,7 +4,7 @@ import { get, sortBy } from 'lodash';
 class Team extends Component {
   render() {
     const { pos, attributes } = this.props;
-    const eventsOrder = [1, 2, 3, 4];
+    const eventsOrder = [0, 1, 2, 3];
     const events = sortBy(attributes.events, (event) => event.order);
 
     return (
