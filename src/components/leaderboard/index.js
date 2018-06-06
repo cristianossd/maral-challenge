@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import LeaderboardTable from '../leaderboard-table';
-import logo from '../../assets/maral-challenge-logo.png';
+import { CATEGORIES } from '../../constants';
 
-const categories = [
-  'Trio Scaled Feminino',
-  'Trio Scaled Masculino',
-  'Dupla Intermediário Feminino',
-  'Dupla Intermediário Masculino',
-  'RX Individual Masculino',
-];
+import logo from '../../assets/maral-challenge-logo.png';
 
 class Leaderboard extends Component {
   constructor(props) {
@@ -49,7 +43,7 @@ class Leaderboard extends Component {
                   onChange={this.setCategory}
                 >
                   <option value="" disabled>Selecione a categoria</option>
-                  {categories.map((category, index) => (
+                  {CATEGORIES.map((category, index) => (
                     <option key={index} value={category}>{category}</option>
                   ))}
                 </select>
