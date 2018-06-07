@@ -5,6 +5,7 @@ import Leaderboard from './components/leaderboard';
 import LeaderboardResources from './components/leaderboard-resources';
 import Login from './components/login';
 import GenerateTeams from './components/generate-teams';
+import EventsScore from './components/events-score';
 import { AUTH_TOKEN } from './constants';
 
 import './assets/App.css';
@@ -20,6 +21,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           {authToken && <Route exact path="/resources" component={LeaderboardResources} />}
           {authToken && <Route exact path="/teams/generate" component={GenerateTeams} />}
+          {authToken && <Route exact path="/events/score" component={EventsScore} />}
         </Switch>
       </div>
     );

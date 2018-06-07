@@ -16,9 +16,9 @@ class Team extends Component {
 
           return (
             <td key={idx}>
-              {event.time && (`${event.time} (${event.ranking})`)}
-              {event.reps && (`${event.reps} (${event.ranking})`)}
-              {event.weight && (`${event.weight} (${event.ranking})`)}
+              {event.time && (`${event.time} (${event.ranking || ''})`)}
+              {event.reps && (`${event.reps} (${event.ranking || ''})`)}
+              {event.weight && (`${event.weight} (${event.ranking || ''})`)}
             </td>
           )
         })}
