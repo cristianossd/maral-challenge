@@ -58,7 +58,7 @@ class LeaderboardTable extends Component {
   }
 
   _getLeaderboard = async (category) => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, teams: [] });
 
     const { data } = await this.props.client.query({
       query: LEADERBOARD_QUERY,
