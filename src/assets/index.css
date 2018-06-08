@@ -7,3 +7,7 @@ body {
   background-image: url('asfalt-light.png');
   background-repeat: repeat;
 }
+
+.highlight {
+  color: #FFA500;
+}

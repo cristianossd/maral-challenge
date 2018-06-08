@@ -3,9 +3,10 @@ import { get, sortBy } from 'lodash';
 
 class Team extends Component {
   render() {
-    const { pos, attributes } = this.props;
+    const { pos, attributes, hidden } = this.props;
     const eventsOrder = [0, 1, 2, 3];
     const events = sortBy(attributes.events, (event) => event.order);
+    const highlightClass = 'highlight';
 
     return (
       <tr>
@@ -15,14 +16,14 @@ class Team extends Component {
           const event = get(events, `${order}`, { time: '', ranking: 1 });
 
           return (
-            <td key={idx}>
-              {event.time && (`${event.time} (${event.ranking || ''})`)}
-              {event.reps && (`${event.reps} (${event.ranking || ''})`)}
-              {event.weight && (`${event.weight} (${event.ranking || ''})`)}
+            <td key={idx} className={event.ranking === 1 && highlightClass}>
+              {!hidden && event.time && (`${event.time} (${event.ranking || ''})`)}
+              {!hidden && event.reps && (`${event.reps} (${event.ranking || ''})`)}
+              {!hidden && event.weight && (`${event.weight} (${event.ranking || ''})`)}
             </td>
           )
         })}
-        <td>{attributes.finalScore}</td>
+        <td>{!hidden && attributes.finalScore}</td>
       </tr>
     );
   }

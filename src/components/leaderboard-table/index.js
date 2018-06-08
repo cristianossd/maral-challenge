@@ -13,6 +13,7 @@ class LeaderboardTable extends Component {
     this.state = {
       teams: [],
       loading: false,
+      hidden: false,
     };
   }
 
@@ -24,7 +25,7 @@ class LeaderboardTable extends Component {
   }
 
   render() {
-    const { loading, teams } = this.state;
+    const { loading, teams, hidden } = this.state;
 
     return (
       <div className="LeaderboardTable table-responsive">
@@ -44,7 +45,7 @@ class LeaderboardTable extends Component {
           <tbody>
             {teams.length > 0 &&
               teams.map((team, idx) => (
-                <Team key={idx} pos={idx} attributes={team} />
+                <Team key={idx} pos={idx} attributes={team} hidden={hidden} />
               ))
             }
           </tbody>
@@ -62,16 +63,18 @@ class LeaderboardTable extends Component {
 
     const { data } = await this.props.client.query({
       query: LEADERBOARD_QUERY,
-      variables: { category },
+      variables: { category, hiddenName: 'hiddenResult' },
     });
 
-
-    this.setState({ teams: data.leaderboard, loading: false });
+    this.setState({ teams: data.leaderboard, loading: false, hidden: data.hidden.flag });
   }
 }
 
 const LEADERBOARD_QUERY = gql`
-  query LeaderboardQuery($category: String!) {
+  query LeaderboardQuery($category: String!, $hiddenName: String!) {
+    hidden(name: $hiddenName) {
+      flag
+    }
     leaderboard(category: $category) {
       id
       name
