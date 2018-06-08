@@ -12,6 +12,8 @@ import { AUTH_TOKEN } from './constants';
 
 import './assets/App.css';
 
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 class App extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
@@ -19,13 +21,13 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/" component={Leaderboard} />
-          <Route exact path="/login" component={Login} />
-          {authToken && <Route exact path="/resources" component={LeaderboardResources} />}
-          {authToken && <Route exact path="/teams/generate" component={GenerateTeams} />}
-          {authToken && <Route exact path="/teams/score" component={TeamsScore} />}
-          {authToken && <Route exact path="/events/score" component={EventsScore} />}
-          {authToken && <Route exact path="/events/ranking" component={EventsRanking} />}
+          <Route exact path={`${PUBLIC_URL}/`} component={Leaderboard} />
+          <Route exact path={`${PUBLIC_URL}/login`} component={Login} />
+          {authToken && <Route exact path={`${PUBLIC_URL}/resources`} component={LeaderboardResources} />}
+          {authToken && <Route exact path={`${PUBLIC_URL}/teams/generate`} component={GenerateTeams} />}
+          {authToken && <Route exact path={`${PUBLIC_URL}/teams/score`} component={TeamsScore} />}
+          {authToken && <Route exact path={`${PUBLIC_URL}/events/score`} component={EventsScore} />}
+          {authToken && <Route exact path={`${PUBLIC_URL}/events/ranking`} component={EventsRanking} />}
         </Switch>
       </div>
     );
