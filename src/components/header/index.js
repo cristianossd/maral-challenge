@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <div classNameName="Header">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Maral Challenge</a>
+          <Link className="nav-link" to="/resources">Maral Challenge</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
