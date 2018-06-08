@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { CATEGORIES } from '../../constants';
 
+import Header from '../header';
+
 import './style.css';
 
 class GenerateTeams extends Component {
@@ -15,43 +17,46 @@ class GenerateTeams extends Component {
     const { category } = this.state;
 
     return (
-      <div className="GenerateTeams">
-        <div className="GenerateTeams-form">
-          <h3>Gerar padrão de eventos</h3>
+      <div>
+        <Header />
+        <div className="GenerateTeams">
+          <div className="GenerateTeams-form">
+            <h3>Gerar padrão de eventos</h3>
 
-          <div className="form-group">
-            <label htmlFor="categoriesSelect">Selecione a categoria:</label>
-            <select
-              className="form-control"
-              id="categoriesSelect"
-              defaultValue={category}
-              onChange={(e) => this.setState({ category: e.target.value })}
+            <div className="form-group">
+              <label htmlFor="categoriesSelect">Selecione a categoria:</label>
+              <select
+                className="form-control"
+                id="categoriesSelect"
+                defaultValue={category}
+                onChange={(e) => this.setState({ category: e.target.value })}
+              >
+                <option value="" disabled></option>
+                {CATEGORIES.map((category, index) => (
+                  <option key={index} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="teamsText">Equipes (separados por vírgula)</label>
+              <textarea
+                className="form-control"
+                id="teamsText"
+                rows="3"
+                onChange={(e) => this.setState({ teams: e.target.value })}
+              />
+            </div>
+
+            <button
+              type="button"
+              className="btn btn-block btn-primary"
+              onClick={() => this._generate()}
             >
-              <option value="" disabled></option>
-              {CATEGORIES.map((category, index) => (
-                <option key={index} value={category}>{category}</option>
-              ))}
-            </select>
+              GERAR EVENTOS
+            </button>
+
           </div>
-
-          <div className="form-group">
-            <label htmlFor="teamsText">Equipes (separados por vírgula)</label>
-            <textarea
-              className="form-control"
-              id="teamsText"
-              rows="3"
-              onChange={(e) => this.setState({ teams: e.target.value })}
-            />
-          </div>
-
-          <button
-            type="button"
-            className="btn btn-block btn-primary"
-            onClick={() => this._generate()}
-          >
-            GERAR EVENTOS
-          </button>
-
         </div>
       </div>
     );

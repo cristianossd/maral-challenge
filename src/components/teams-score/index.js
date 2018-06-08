@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { CATEGORIES } from '../../constants';
 
+import Header from '../header';
+
 import './style.css';
 
 class TeamsScore extends Component {
@@ -15,36 +17,39 @@ class TeamsScore extends Component {
     const { category, generated } = this.state;
 
     return (
-      <div className="TeamsScore">
-        <div className="TeamsScore-form">
-          <h3>Gerar score final por categoria</h3>
-          {generated &&
-            <p>Ranking gerado para a categoria {category}!</p>
-          }
+      <div>
+        <Header />
+        <div className="TeamsScore">
+          <div className="TeamsScore-form">
+            <h3>Gerar score final por categoria</h3>
+            {generated &&
+              <p>Ranking gerado para a categoria {category}!</p>
+            }
 
-          <div className="form-group">
-            <label htmlFor="categoriesSelect">Selecione a categoria:</label>
-            <select
-              className="form-control"
-              id="categoriesSelect"
-              defaultValue=""
-              onChange={(e) => this.setState({ category: e.target.value })}
+            <div className="form-group">
+              <label htmlFor="categoriesSelect">Selecione a categoria:</label>
+              <select
+                className="form-control"
+                id="categoriesSelect"
+                defaultValue=""
+                onChange={(e) => this.setState({ category: e.target.value })}
+              >
+                <option value="" disabled></option>
+                {CATEGORIES.map((c, index) => (
+                  <option key={index} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              type="button"
+              className="btn btn-block btn-primary"
+              onClick={() => this._setTeamsScore()}
             >
-              <option value="" disabled></option>
-              {CATEGORIES.map((c, index) => (
-                <option key={index} value={c}>{c}</option>
-              ))}
-            </select>
+              GERAR SCORE DA CATEGORIA
+            </button>
+
           </div>
-
-          <button
-            type="button"
-            className="btn btn-block btn-primary"
-            onClick={() => this._setTeamsScore()}
-          >
-            GERAR SCORE DA CATEGORIA
-          </button>
-
         </div>
       </div>
     );

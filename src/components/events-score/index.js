@@ -4,6 +4,8 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import { sortBy } from 'lodash';
 import { CATEGORIES } from '../../constants';
 
+import Header from '../header';
+
 import './style.css';
 
 class EventsScore extends Component {
@@ -29,108 +31,111 @@ class EventsScore extends Component {
     } = this.state;
 
     return (
-      <div className="EventsScore">
-        <div className="EventsScore-form">
-          <h3>Atualizar score do evento</h3>
+      <div>
+        <Header />
+        <div className="EventsScore">
+          <div className="EventsScore-form">
+            <h3>Atualizar score do evento</h3>
 
-          <div className="form-group">
-            <label htmlFor="categoriesSelect">Selecione a categoria:</label>
-            <select
-              className="form-control"
-              id="categoriesSelect"
-              defaultValue=""
-              onChange={(e) => this._getTeams(e.target.value)}
+            <div className="form-group">
+              <label htmlFor="categoriesSelect">Selecione a categoria:</label>
+              <select
+                className="form-control"
+                id="categoriesSelect"
+                defaultValue=""
+                onChange={(e) => this._getTeams(e.target.value)}
+              >
+                <option value="" disabled></option>
+                {CATEGORIES.map((c, index) => (
+                  <option key={index} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            {category && teams.length > 0 &&
+              <div className="form-group">
+                <label htmlFor="teamsSelect">Selecione a equipe:</label>
+                <select
+                  className="form-control"
+                  id="teamsSelect"
+                  defaultValue=""
+                  onChange={(e) => this._getEvents(e.target.value)}
+                >
+                  <option value="" disabled></option>
+                  {teams.map((t, index) => (
+                    <option key={index} value={t.name}>{t.name}</option>
+                  ))}
+                </select>
+              </div>
+            }
+
+            {teamName && events.length > 0 &&
+              <div className="form-group">
+                <label htmlFor="eventsSelect">Selecione evento:</label>
+                <select
+                  className="form-control"
+                  id="eventsSelect"
+                  defaultValue=""
+                  onChange={(e) => this.setState({ eventId: e.target.value })}
+                >
+                  <option value="" disabled></option>
+                  {events.map((e, index) => (
+                    <option key={index} value={e.id}>{e.order}</option>
+                  ))}
+                </select>
+              </div>
+            }
+
+            {eventId &&
+              <div>
+                <div className="form-group">
+                  <label>Resultado do WOD:</label>
+                </div>
+
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    aria-describedby="timeHelp"
+                    placeholder="Tempo do WOD (MM:SS)"
+                    onChange={e => this.setState({ eventTime: e.target.value })}
+                  />
+                  <small id="timeHelp" className="form-text text-muted">Inserir penalidade no tempo (ex: CAP excedido)</small>
+                </div>
+
+                <div className="form-group">
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-describedby="repsHelp"
+                    placeholder="Repetições"
+                    onChange={e => this.setState({ eventReps: e.target.value })}
+                  />
+                  <small id="repsHelp" className="form-text text-muted">Número de repetições</small>
+                </div>
+
+                <div className="form-group">
+                  <input
+                    type="number"
+                    className="form-control"
+                    aria-describedby="weightHelp"
+                    placeholder="Peso levantado"
+                    onChange={e => this.setState({ eventWeight: e.target.value })}
+                  />
+                  <small id="weightHelp" className="form-text text-muted">Para prova de maior peso levantado</small>
+                </div>
+              </div>
+            }
+
+            <button
+              type="button"
+              className="btn btn-block btn-primary"
+              onClick={() => this._updateEvent()}
             >
-              <option value="" disabled></option>
-              {CATEGORIES.map((c, index) => (
-                <option key={index} value={c}>{c}</option>
-              ))}
-            </select>
+              ATUALIZAR EVENTO
+            </button>
+
           </div>
-
-          {category && teams.length > 0 &&
-            <div className="form-group">
-              <label htmlFor="teamsSelect">Selecione a equipe:</label>
-              <select
-                className="form-control"
-                id="teamsSelect"
-                defaultValue=""
-                onChange={(e) => this._getEvents(e.target.value)}
-              >
-                <option value="" disabled></option>
-                {teams.map((t, index) => (
-                  <option key={index} value={t.name}>{t.name}</option>
-                ))}
-              </select>
-            </div>
-          }
-
-          {teamName && events.length > 0 &&
-            <div className="form-group">
-              <label htmlFor="eventsSelect">Selecione evento:</label>
-              <select
-                className="form-control"
-                id="eventsSelect"
-                defaultValue=""
-                onChange={(e) => this.setState({ eventId: e.target.value })}
-              >
-                <option value="" disabled></option>
-                {events.map((e, index) => (
-                  <option key={index} value={e.id}>{e.order}</option>
-                ))}
-              </select>
-            </div>
-          }
-
-          {eventId &&
-            <div>
-              <div className="form-group">
-                <label>Resultado do WOD:</label>
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  aria-describedby="timeHelp"
-                  placeholder="Tempo do WOD (MM:SS)"
-                  onChange={e => this.setState({ eventTime: e.target.value })}
-                />
-                <small id="timeHelp" className="form-text text-muted">Inserir penalidade no tempo (ex: CAP excedido)</small>
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="number"
-                  className="form-control"
-                  aria-describedby="repsHelp"
-                  placeholder="Repetições"
-                  onChange={e => this.setState({ eventReps: e.target.value })}
-                />
-                <small id="repsHelp" className="form-text text-muted">Número de repetições</small>
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="number"
-                  className="form-control"
-                  aria-describedby="weightHelp"
-                  placeholder="Peso levantado"
-                  onChange={e => this.setState({ eventWeight: e.target.value })}
-                />
-                <small id="weightHelp" className="form-text text-muted">Para prova de maior peso levantado</small>
-              </div>
-            </div>
-          }
-
-          <button
-            type="button"
-            className="btn btn-block btn-primary"
-            onClick={() => this._updateEvent()}
-          >
-            ATUALIZAR EVENTO
-          </button>
-
         </div>
       </div>
     );
