@@ -17,7 +17,7 @@ class App extends Component {
     const authToken = localStorage.getItem(AUTH_TOKEN);
 
     return (
-      <div>
+      <div className="App">
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/`} component={Leaderboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
