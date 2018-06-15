@@ -1,0 +1,37 @@
+box: node:8.10
+
+dependencies:
+  steps:
+    - script:
+      name: set yarn cache
+      code: yarn config set cache-folder $WERCKER_CACHE_DIR/maral-challenge
+
+    - script:
+      name: install dependencies
+      code: yarn install --frozen-lockfile
+
+tests:
+  steps:
+    - script:
+      name: test
+      code: |
+        yarn test
+
+build:
+  steps:
+    - script:
+      name: build assets
+      code: |
+        yarn build
+
+deploy:
+  steps:
+    - script:
+      name: setup environment
+      code: |
+        npm install netlify-cli -g
+
+    - script:
+      name: deploy to netlify
+      code: |
+        netlify -t $NETLIFY_ACCESS_TOKEN
