@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Team /> render correctly 1`] = `
+<tr>
+  <th
+    scope="row"
+  >
+    2
+  </th>
+  <td>
+    <strong>
+      Team mock
+    </strong>
+  </td>
+  <td
+    className="highlight"
+    key="0"
+  >
+    04:20 (1)
+  </td>
+  <td
+    className="highlight"
+    key="1"
+  />
+  <td
+    className="highlight"
+    key="2"
+  />
+  <td
+    className="highlight"
+    key="3"
+  />
+  <td>
+    2
+  </td>
+</tr>
+`;
