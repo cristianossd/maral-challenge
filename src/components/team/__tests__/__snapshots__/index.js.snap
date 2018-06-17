@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Team /> render correctly 1`] = `
-<tr>
+<tr
+  className="Team"
+>
   <th
     scope="row"
   >

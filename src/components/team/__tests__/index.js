@@ -22,7 +22,8 @@ describe('<Team />', () => {
       />
     );
 
-    expect(wrapper.find('tr').length).toBe(1);
+    expect(wrapper.find('.Team').length).toBe(1);
+    expect(wrapper.find('th').text()).toBe('2');
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 });

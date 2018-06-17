@@ -9,7 +9,7 @@ class Team extends Component {
     const highlightClass = 'highlight';
 
     return (
-      <tr>
+      <tr className="Team">
         <th scope="row">{pos + 1}</th>
         <td><strong>{attributes.name}</strong></td>
         {eventsOrder.map((order, idx) => {
